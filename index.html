@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantik Mesaj</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a1d3d; /* Gece mavisi arka plan */
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  #stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2s infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+  }
+  #card {
+    background: rgba(255, 255, 255, 0.15); /* Hafif saydam */
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 1;
+  }
+  #card h1 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: #ffffff; /* Yazı rengi beyaz */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  }
+  #card p {
+    font-size: 1.2rem;
+    color: #ffffff; /* Yazı rengi beyaz */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    min-height: 4rem;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+  }
+  #revealBtn {
+    padding: 14px 28px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff476f, #ff7aa2);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(255,71,111,0.28);
+  }
+  #revealBtn:active {
+    transform: translateY(1px);
+  }
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div id="card">
+  <h1>Bir şey söylemek istiyorum…</h1>
+  <p id="message"></p>
+  <button id="revealBtn">Mesajı Gör</button>
+  <audio id="loveAudio" src="" preload="auto"></audio> <!-- Mp3 dosyanı buraya ekle -->
+</div>
+<script>
+const revealBtn = document.getElementById('revealBtn');
+const messageEl = document.getElementById('message');
+const audio = document.getElementById('loveAudio');
+
+const romanticMessage = `Seninle tanışmak hayatımda başıma gelen en iyi şey. İyi ki varsın. Aslında bunu yapma sebebim Seni Sevdiğimi söylemekti 
+seni gerçekten çok seviyorum`;
+
+function typeWriter(target, text, speed=50, cb){
+  target.textContent = '';
+  let i = 0;
+  const t = setInterval(()=>{
+    target.textContent += text.charAt(i);
+    i++;
+    if(i >= text.length){
+      clearInterval(t);
+      if(cb) cb();
+    }
+  }, speed);
+}
+
+revealBtn.addEventListener('click', ()=>{
+  revealBtn.disabled = true;
+  typeWriter(messageEl, romanticMessage, 50, ()=>{
+    audio.play();
+  });
+});
+
+// Yıldızları oluştur
+const starsContainer = document.getElementById('stars');
+for(let i=0;i<100;i++){
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.top = Math.random()*100 + '%';
+  star.style.left = Math.random()*100 + '%';
+  star.style.width = star.style.height = (1 + Math.random()*2) + 'px';
+  star.style.animationDuration = (1 + Math.random()*3) + 's';
+  starsContainer.appendChild(star);
+}
+</script>
+</body>
+</html>
