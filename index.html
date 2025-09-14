@@ -61,18 +61,19 @@
     white-space: pre-wrap;
     margin-bottom: 20px;
   }
-  #revealBtn {
-    padding: 14px 28px;
-    font-size: 1.2rem;
+  .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
     border: none;
     border-radius: 12px;
     font-weight: bold;
     background: linear-gradient(90deg, #ff476f, #ff7aa2);
     color: white;
     cursor: pointer;
+    margin: 5px;
     box-shadow: 0 6px 18px rgba(255,71,111,0.28);
   }
-  #revealBtn:active {
+  .btn:active {
     transform: translateY(1px);
   }
 </style>
@@ -82,13 +83,18 @@
 <div id="card">
   <h1>Bir şey söylemek istiyorum…</h1>
   <p id="message"></p>
-  <button id="revealBtn">Mesajı Gör</button>
+  <button id="revealBtn" class="btn">Mesajı Gör</button>
+  <br>
+  <button id="playBtn" class="btn">Müziği Başlat</button>
+  <button id="pauseBtn" class="btn">Müziği Durdur</button>
   <audio id="loveAudio" src="SendenDahaGüzel.mp3" preload="auto"></audio> <!-- Mp3 dosyanı buraya ekle -->
 </div>
 <script>
 const revealBtn = document.getElementById('revealBtn');
 const messageEl = document.getElementById('message');
 const audio = document.getElementById('loveAudio');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
 
 const romanticMessage = `Seninle tanışmak hayatımda başıma gelen en iyi şey. 
 İyi ki varsın. Aslında bunu yapma sebebim Seni Sevdiğimi söylemekti 
@@ -112,6 +118,14 @@ revealBtn.addEventListener('click', ()=>{
   typeWriter(messageEl, romanticMessage, 50, ()=>{
     audio.play();
   });
+});
+
+playBtn.addEventListener('click', ()=>{
+  audio.play();
+});
+
+pauseBtn.addEventListener('click', ()=>{
+  audio.pause();
 });
 
 // Yıldızları oluştur
